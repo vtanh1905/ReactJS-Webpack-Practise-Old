@@ -1,9 +1,12 @@
-import React from "react";
+import React from 'react';
+import imgWebpack from './assets/img-webpack.png';
 
 const App = () => {
   return (
     <>
-      Webpack Practise<hr></hr>
+      <div>
+        <img src={imgWebpack} alt="" style={{ width: '100vh' }} />
+      </div>
       Test DotEnv : {process.env.PORT}
     </>
   );
