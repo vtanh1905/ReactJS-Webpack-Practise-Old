@@ -1,17 +1,17 @@
-const path = require("path");
+const path = require('path');
 
 // plugins
-const HtmlWebpackPlugin = require("html-webpack-plugin"); // Kết nối HTML với file bundle.js
-const WebpackBar = require("webpackbar"); // Để vễ process bar
-const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // Tự động xóa các file build sau khi npm start
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // Kết nối HTML với file bundle.js
+const WebpackBar = require('webpackbar'); // Để vễ process bar
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // Tự động xóa các file build sau khi npm start
 
 module.exports = {
-  entry: "./src/index.js", // File sẽ được biên dịch
+  entry: './src/index.js', // File sẽ được biên dịch
 
   // Nơi file đươc build ra
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "bundle.js"
+    path: path.join(__dirname, '/dist'),
+    filename: 'bundle.js'
   },
 
   module: {
@@ -21,13 +21,22 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       },
       // Convert style, file css
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader']
+      },
+      // Load File
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
       }
     ]
   },
@@ -40,7 +49,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html"
+      template: './public/index.html'
     }),
     new WebpackBar(),
     new CleanWebpackPlugin()
