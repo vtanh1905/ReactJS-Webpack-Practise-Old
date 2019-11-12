@@ -7,7 +7,8 @@ const App = () => {
       <div>
         <img src={imgWebpack} alt="" style={{ width: '100vh' }} />
       </div>
-      <h1>Webpack Practise</h1>
+      <h1>Webpack Practise</h1></hr>
+       Test DotEnv : {process.env.PORT}
     </>
   );
 };
