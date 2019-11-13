@@ -15,6 +15,13 @@ module.exports = {
     filename: 'bundle.js'
   },
 
+  resolve: {
+    // Setting alias resolve, nhớ setting thêm trong jsonconfig.json để visual code biết
+    alias: {
+      '@assets': path.resolve(__dirname, 'src/assets/')
+    }
+  },
+
   module: {
     rules: [
       // Convert ES6,7 => ES5
