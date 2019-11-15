@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // Kết nối HTML v�
 const WebpackBar = require('webpackbar'); // Để vễ process bar
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // Tự động xóa các file build sau khi npm start
 const Dotenv = require('dotenv-webpack');
+const AutoDllPlugin = require('autodll-webpack-plugin'); // Giup cho run vs rebuild nhanh hơn
 
 module.exports = {
   entry: './src/index.js', // File sẽ được biên dịch
@@ -51,7 +52,8 @@ module.exports = {
   // Setting PORT LINK HEADER ...
   devServer: {
     port: 3000, // Set port cho server
-    noInfo: true // Không cho hiên message webpack khi run
+    noInfo: true, // Không cho hiên message webpack khi run
+    hot: true // Khi t thay đổi file code thì không phải load lại hoàn toàn
   },
 
   plugins: [
@@ -66,6 +68,13 @@ module.exports = {
       systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
       silent: true, // hide any errors
       defaults: false // load '.env.defaults' as the default values if empty.
+    }),
+    new AutoDllPlugin({
+      inject: true, // will inject the DLL bundles to index.html
+      filename: 'dll.js',
+      entry: {
+        vendor: ['react', 'react-dom']
+      }
     })
   ]
 };
