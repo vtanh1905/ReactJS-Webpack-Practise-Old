@@ -3,7 +3,9 @@ const path = require('path');
 // plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // Kết nối HTML với file bundle.js
 const WebpackBar = require('webpackbar'); // Để vễ process bar
-const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // Tự động xóa các file build sau khi npm start
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin'); // Tự động xóa các file build sau khi npm start
 const Dotenv = require('dotenv-webpack');
 const AutoDllPlugin = require('autodll-webpack-plugin'); // Giup cho run vs rebuild nhanh hơn
 
@@ -13,7 +15,7 @@ module.exports = {
   // Nơi file đươc build ra
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
 
   resolve: {
@@ -40,11 +42,9 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
+        use: [{
+          loader: 'file-loader'
+        }]
       }
     ]
   },
@@ -71,7 +71,8 @@ module.exports = {
     }),
     new AutoDllPlugin({
       inject: true, // will inject the DLL bundles to index.html
-      filename: 'dll.js',
+      filename: '[name].dll.js',
+      publicPath: '',
       entry: {
         vendor: ['react', 'react-dom']
       }
